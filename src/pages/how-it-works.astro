@@ -1,0 +1,209 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Section from '@/components/sections/Section.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import GlassCard from '@/components/ui/GlassCard.astro';
+import { FadeIn } from '@/components/react/FadeIn';
+import { getLocale } from '@/lib/i18n';
+
+const locale = getLocale(Astro.url);
+
+const steps = [
+  {
+    number: '01',
+    title: 'Assess Your CCTV Setup',
+    description: 'We evaluate your existing camera infrastructure — brand, model, positioning, and network setup. Nigahban works with any IP camera that supports RTSP or ONVIF protocols, including Hikvision, Dahua, Axis, and more.',
+    detail: 'No new cameras needed. If your CCTV is already recording, it can work with Nigahban.',
+  },
+  {
+    number: '02',
+    title: 'Connect to Nigahban',
+    description: 'Our team configures the RTSP streams from your cameras into the Nigahban system. This takes under an hour for most setups. The system connects to your existing NVR or directly to individual IP cameras.',
+    detail: 'On-premises deployment means your video feeds never leave your building.',
+  },
+  {
+    number: '03',
+    title: 'AI Starts Monitoring',
+    description: 'Once connected, Nigahban begins analyzing every frame in real time. Our proprietary AI engine runs continuous detection — identifying fire, smoke, and thermal anomalies across all connected cameras simultaneously.',
+    detail: 'The system runs 24/7 with zero human intervention required.',
+  },
+  {
+    number: '04',
+    title: 'Get Alerts Instantly',
+    description: 'When a threat is detected, alerts fire within seconds across your chosen channels — WhatsApp, Email, Telegram, or Voice Call. Each alert includes a captured frame, camera location, and timestamp.',
+    detail: 'Configure who gets alerted, how, and for which cameras — all from the dashboard.',
+  },
+];
+
+const scenarios = [
+  {
+    title: 'Textile Factory in SITE Area',
+    problem: 'Night shift with minimal supervision. A machine overheats near a stack of raw cotton bales — no workers in that section notice.',
+    solution: 'Nigahban detects early smoke rising from the machine area through the factory CCTV.',
+    outcome: 'WhatsApp alert sent to the shift supervisor within 2 seconds, with a frame capture showing exactly which machine and area. Fire contained before it spreads to inventory.',
+  },
+  {
+    title: 'Korangi Warehouse',
+    problem: 'Chemical storage area. A short circuit ignites flammable materials in a section with limited foot traffic. Nobody is nearby.',
+    solution: 'Nigahban identifies flames across multiple camera angles, cross-verifying the detection for maximum confidence.',
+    outcome: 'Email alert with frame captures from two cameras sent to the facility manager and the fire safety officer. Emergency response initiated within minutes.',
+  },
+  {
+    title: 'Lucky One Mall',
+    problem: 'Food court kitchen produces steam and cooking fumes throughout the day. Traditional smoke detectors would trigger constant false alarms.',
+    solution: 'Nigahban distinguishes between normal cooking steam and actual fire or hazardous smoke, reducing false positives.',
+    outcome: 'When a real kitchen fire breaks out, the system correctly identifies it and sends an evacuation alert — while ignoring the routine steam all day.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What cameras are supported?',
+    answer: 'Any IP camera that supports RTSP or ONVIF protocols. This includes all major brands — Hikvision, Dahua, Axis, Uniview, and many more. If your camera is currently recording to an NVR, it will work with Nigahban.',
+  },
+  {
+    question: 'How fast is detection?',
+    answer: 'Under 3 seconds from the moment flame or smoke appears to the alert reaching your phone. Our dual-layer AI verification ensures speed without sacrificing accuracy.',
+  },
+  {
+    question: 'Do I need new hardware?',
+    answer: 'No. Nigahban works with your existing CCTV cameras and network. We deploy our processing unit on-premises or in the cloud — your cameras stay exactly where they are.',
+  },
+  {
+    question: 'What if internet goes down?',
+    answer: 'Our on-premises deployment option processes everything locally. If connectivity drops, alerts are queued and delivered the moment the connection is restored. Your protection never stops.',
+  },
+  {
+    question: 'How do I get started?',
+    answer: 'Book a free demo. We will connect to one of your cameras live and show you Nigahban detecting fire in real time. No commitment, no setup fee for the demo.',
+  },
+];
+---
+
+<Layout title="How It Works — Nigahban AI Fire Detection">
+  <Header locale={locale} />
+  <main>
+    {/* Hero */}
+    <Section variant="dark" background="dots" id="hiw-hero">
+      <div class="min-h-[60vh] flex items-center -my-20 lg:-my-28">
+        <div class="max-w-3xl">
+          <FadeIn client:visible>
+            <p class="text-amber text-sm font-semibold tracking-widest uppercase mb-4">How It Works</p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight mb-6">
+              How Nigahban
+              <span class="text-amber"> Protects Your Building</span>
+            </h1>
+            <p class="text-xl text-slate-light mb-8 max-w-2xl">
+              From your existing CCTV to instant fire alerts — here is exactly how Nigahban works, step by step.
+            </p>
+          </FadeIn>
+        </div>
+      </div>
+    </Section>
+
+    {/* Integration Steps */}
+    <Section variant="light" background="grid" id="integration-steps">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="Setup"
+          title="Four Steps to Protection"
+          description="Getting started with Nigahban is simple. No new cameras, no construction, no downtime."
+        />
+      </FadeIn>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+        {steps.map((step, i) => (
+          <FadeIn client:visible delay={i * 0.15}>
+            <GlassCard className="bg-white h-full">
+              <div class="flex items-center gap-4 mb-4">
+                <span class="text-4xl font-heading font-bold text-amber/30">{step.number}</span>
+                <h3 class="text-xl font-heading font-semibold">{step.title}</h3>
+              </div>
+              <p class="text-slate-cool mb-4">{step.description}</p>
+              <p class="text-sm text-amber font-medium">{step.detail}</p>
+            </GlassCard>
+          </FadeIn>
+        ))}
+      </div>
+    </Section>
+
+    {/* Scenario Walkthroughs */}
+    <Section variant="charcoal" id="scenarios">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="Real Scenarios"
+          title="See Nigahban in Action"
+          description="Real-world scenarios showing how Nigahban protects different types of buildings across Karachi."
+        />
+      </FadeIn>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-16">
+        {scenarios.map((scenario, i) => (
+          <FadeIn client:visible delay={i * 0.15}>
+            <GlassCard className="h-full">
+              <h3 class="text-xl font-heading font-semibold text-amber mb-6">{scenario.title}</h3>
+              <div class="space-y-4">
+                <div>
+                  <p class="text-xs font-semibold tracking-widest uppercase text-slate-light mb-1">Problem</p>
+                  <p class="text-slate-light">{scenario.problem}</p>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold tracking-widest uppercase text-amber mb-1">Solution</p>
+                  <p class="text-slate-light">{scenario.solution}</p>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold tracking-widest uppercase text-green-400 mb-1">Outcome</p>
+                  <p class="text-slate-light">{scenario.outcome}</p>
+                </div>
+              </div>
+            </GlassCard>
+          </FadeIn>
+        ))}
+      </div>
+    </Section>
+
+    {/* FAQ */}
+    <Section variant="light" id="faq">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="FAQ"
+          title="Frequently Asked Questions"
+          description="Everything you need to know about getting started with Nigahban."
+        />
+      </FadeIn>
+      <div class="max-w-3xl mx-auto mt-16 space-y-6">
+        {faqs.map((faq, i) => (
+          <FadeIn client:visible delay={i * 0.1}>
+            <div class="border border-slate-200 rounded-2xl p-6">
+              <h3 class="text-lg font-heading font-semibold mb-2">{faq.question}</h3>
+              <p class="text-slate-cool">{faq.answer}</p>
+            </div>
+          </FadeIn>
+        ))}
+      </div>
+    </Section>
+
+    {/* CTA */}
+    <Section variant="dark" background="none" className="bg-gradient-to-r from-navy to-charcoal">
+      <div class="max-w-3xl mx-auto text-center">
+        <FadeIn client:visible>
+          <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">
+            Ready to See It Live?
+          </h2>
+          <p class="text-lg text-slate-light mb-10">
+            Book a free demo — we will connect to your cameras and show you Nigahban in action.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a
+              href="/contact"
+              class="bg-amber text-navy font-semibold px-8 py-4 rounded-xl hover:brightness-110 transition-all text-lg"
+            >
+              Book a Free Demo
+            </a>
+          </div>
+        </FadeIn>
+      </div>
+    </Section>
+  </main>
+  <Footer locale={locale} />
+</Layout>

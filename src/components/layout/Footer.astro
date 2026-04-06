@@ -1,0 +1,76 @@
+---
+import { getLocale, t } from '@/lib/i18n';
+import type { Locale } from '@/lib/i18n';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = getLocale(Astro.url) } = Astro.props;
+
+const prefix = locale === 'ur' ? '/ur' : '';
+---
+
+<footer class="bg-navy text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      {/* Company */}
+      <div>
+        <h4 class="text-amber font-heading font-semibold mb-4">
+          {t(locale, 'footer.company.title')}
+        </h4>
+        <ul class="space-y-2">
+          <li><a href={`${prefix}/about`} class="text-slate-light hover:text-white transition">{t(locale, 'footer.company.about')}</a></li>
+          <li><a href={`${prefix}/careers`} class="text-slate-light hover:text-white transition">{t(locale, 'footer.company.careers')}</a></li>
+          <li><a href={`${prefix}/press`} class="text-slate-light hover:text-white transition">{t(locale, 'footer.company.press')}</a></li>
+        </ul>
+      </div>
+
+      {/* Product */}
+      <div>
+        <h4 class="text-amber font-heading font-semibold mb-4">
+          {t(locale, 'footer.product.title')}
+        </h4>
+        <ul class="space-y-2">
+          <li><a href={`${prefix}/product`} class="text-slate-light hover:text-white transition">{t(locale, 'footer.product.features')}</a></li>
+          <li><a href={`${prefix}/pricing`} class="text-slate-light hover:text-white transition">{t(locale, 'footer.product.pricing')}</a></li>
+          <li><a href={`${prefix}/#how-it-works`} class="text-slate-light hover:text-white transition">{t(locale, 'footer.product.howItWorks')}</a></li>
+        </ul>
+      </div>
+
+      {/* Resources */}
+      <div>
+        <h4 class="text-amber font-heading font-semibold mb-4">
+          {t(locale, 'footer.resources.title')}
+        </h4>
+        <ul class="space-y-2">
+          <li><a href={`${prefix}/blog`} class="text-slate-light hover:text-white transition">{t(locale, 'footer.resources.blog')}</a></li>
+          <li><a href={`${prefix}/docs`} class="text-slate-light hover:text-white transition">{t(locale, 'footer.resources.docs')}</a></li>
+          <li><a href={`${prefix}/support`} class="text-slate-light hover:text-white transition">{t(locale, 'footer.resources.support')}</a></li>
+        </ul>
+      </div>
+
+      {/* Contact */}
+      <div>
+        <h4 class="text-amber font-heading font-semibold mb-4">
+          {t(locale, 'footer.contact.title')}
+        </h4>
+        <ul class="space-y-2">
+          <li class="text-slate-light">{t(locale, 'footer.contact.email')}</li>
+          <li class="text-slate-light">{t(locale, 'footer.contact.phone')}</li>
+          <li class="text-slate-light">{t(locale, 'footer.contact.address')}</li>
+        </ul>
+        <div class="mt-4">
+          <LanguageSwitcher />
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom bar */}
+    <div class="border-t border-white/10 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-light">
+      <span>&copy; {t(locale, 'footer.copyright')}</span>
+      <span>{t(locale, 'footer.tagline')}</span>
+    </div>
+  </div>
+</footer>

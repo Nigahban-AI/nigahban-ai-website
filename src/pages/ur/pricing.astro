@@ -1,0 +1,244 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Section from '@/components/sections/Section.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import { FadeIn } from '@/components/react/FadeIn';
+
+const locale = 'ur' as const;
+
+const plans = [
+  {
+    name: 'سٹارٹر',
+    cameras: '4 کیمروں تک',
+    price: 'PKR 2,500',
+    period: '/کیمرا/ماہ',
+    features: [
+      'آگ اور دھوئیں کا پتہ لگانا',
+      'WhatsApp + Email الرٹس',
+      'بنیادی ڈیش بورڈ',
+      'ای میل سپورٹ',
+      'ڈیٹیکشن ہسٹری (30 دن)',
+    ],
+    cta: 'شروع کریں',
+    ctaHref: '/ur/contact',
+    highlighted: false,
+    badge: null,
+  },
+  {
+    name: 'گروتھ',
+    cameras: '16 کیمروں تک',
+    price: 'PKR 3,500',
+    period: '/کیمرا/ماہ',
+    features: [
+      'آگ اور دھوئیں کا پتہ لگانا',
+      'تمام الرٹ چینلز (WhatsApp، Email، Telegram، Voice)',
+      'مکمل NVR ڈیش بورڈ',
+      'ترجیحی سپورٹ',
+      '99.5% اپ ٹائم SLA',
+      'ڈیٹیکشن ہسٹری (90 دن)',
+      'حسب ضرورت الرٹ قواعد',
+    ],
+    cta: 'شروع کریں',
+    ctaHref: '/ur/contact',
+    highlighted: true,
+    badge: 'سب سے مقبول',
+  },
+  {
+    name: 'انٹرپرائز',
+    cameras: 'لامحدود کیمرے',
+    price: 'حسب ضرورت',
+    period: ' قیمت',
+    features: [
+      'گروتھ میں سب کچھ',
+      'API رسائی',
+      'حسب ضرورت برانڈنگ',
+      'مخصوص اکاؤنٹ مینیجر',
+      '99.9% اپ ٹائم SLA',
+      'آن پریمائسز تعیناتی',
+      'ملٹی سائٹ مینجمنٹ',
+      'حسب ضرورت انٹیگریشنز',
+    ],
+    cta: 'ہم سے رابطہ کریں',
+    ctaHref: '/ur/contact',
+    highlighted: false,
+    badge: null,
+  },
+];
+
+const comparisons = [
+  {
+    feature: 'پتہ لگانے کی رفتار',
+    nigahban: '3 سیکنڈ سے کم',
+    traditional: '30-60 سیکنڈ',
+    international: '5-10 سیکنڈ',
+  },
+  {
+    feature: 'موجودہ CCTV کے ساتھ کام',
+    nigahban: 'ہاں',
+    traditional: 'نہیں (نئے سینسرز)',
+    international: 'کبھی کبھی',
+  },
+  {
+    feature: 'ماہانہ لاگت (4 کیمرے)',
+    nigahban: 'PKR 10,000',
+    traditional: 'PKR 5,000+',
+    international: 'PKR 40,000+',
+  },
+  {
+    feature: 'مقامی سپورٹ',
+    nigahban: 'کراچی پر مبنی ٹیم',
+    traditional: 'مختلف',
+    international: 'کوئی نہیں',
+  },
+  {
+    feature: 'AI سے چلنے والا',
+    nigahban: 'ہاں',
+    traditional: 'نہیں',
+    international: 'ہاں',
+  },
+  {
+    feature: 'جھوٹے الارم کی شرح',
+    nigahban: '< 0.5%',
+    traditional: '10-30%',
+    international: '1-5%',
+  },
+];
+---
+
+<Layout title="نگہبان AI — قیمتیں">
+  <Header locale={locale} />
+  <main>
+    {/* Hero */}
+    <Section variant="dark" background="dots" id="pricing-hero">
+      <div class="min-h-[50vh] flex items-center -my-20 lg:-my-28">
+        <div class="max-w-3xl mx-auto text-center">
+          <FadeIn client:visible>
+            <p class="text-amber text-sm font-semibold tracking-widest uppercase mb-4">قیمتیں</p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight mb-6">
+              سادہ، شفاف
+              <span class="text-amber"> قیمتیں</span>
+            </h1>
+            <p class="text-xl text-slate-light max-w-2xl mx-auto">
+              کوئی پوشیدہ فیسیں نہیں، کوئی طویل مدتی معاہدے نہیں۔ فی کیمرا ادائیگی کریں، کسی بھی وقت منسوخ کریں۔
+            </p>
+          </FadeIn>
+        </div>
+      </div>
+    </Section>
+
+    {/* Pricing Tiers */}
+    <Section variant="light" id="pricing-tiers">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {plans.map((plan, i) => (
+          <FadeIn client:visible delay={i * 0.15}>
+            <div
+              class:list={[
+                'rounded-2xl border p-8 h-full flex flex-col',
+                plan.highlighted
+                  ? 'border-amber border-2 relative bg-white shadow-xl shadow-amber/10'
+                  : 'border-slate-200 bg-white',
+              ]}
+            >
+              {plan.badge && (
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+                  <span class="bg-amber text-navy text-sm font-semibold px-4 py-1 rounded-full">
+                    {plan.badge}
+                  </span>
+                </div>
+              )}
+              <div class="mb-6">
+                <h3 class="text-2xl font-heading font-bold mb-1">{plan.name}</h3>
+                <p class="text-slate-cool text-sm">{plan.cameras}</p>
+              </div>
+              <div class="mb-8">
+                <span class="text-4xl font-heading font-bold">{plan.price}</span>
+                <span class="text-slate-cool text-sm">{plan.period}</span>
+              </div>
+              <ul class="space-y-3 mb-8 flex-1">
+                {plan.features.map((feature) => (
+                  <li class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-amber flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-slate-cool">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={plan.ctaHref}
+                class:list={[
+                  'block text-center font-semibold px-6 py-3 rounded-xl transition-all',
+                  plan.highlighted
+                    ? 'bg-amber text-navy hover:brightness-110'
+                    : 'border border-navy text-navy hover:bg-navy hover:text-white',
+                ]}
+              >
+                {plan.cta}
+              </a>
+            </div>
+          </FadeIn>
+        ))}
+      </div>
+    </Section>
+
+    {/* Comparison */}
+    <Section variant="charcoal" id="comparison">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="موازنہ"
+          title="ہم کیسے مقابلہ کرتے ہیں"
+          description="دیکھیں نگہبان روایتی فائر الارمز اور بین الاقوامی AI حلوں کے مقابلے میں کیسا ہے۔"
+        />
+      </FadeIn>
+      <div class="mt-16 overflow-x-auto">
+        <FadeIn client:visible delay={0.2}>
+          <table class="w-full text-left">
+            <thead>
+              <tr class="border-b border-white/10">
+                <th class="py-4 pr-6 text-slate-light font-medium">خصوصیت</th>
+                <th class="py-4 px-6 text-amber font-semibold">نگہبان AI</th>
+                <th class="py-4 px-6 text-slate-light font-medium">روایتی الارمز</th>
+                <th class="py-4 pl-6 text-slate-light font-medium">بین الاقوامی AI</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisons.map((row) => (
+                <tr class="border-b border-white/5">
+                  <td class="py-4 pr-6 text-slate-light">{row.feature}</td>
+                  <td class="py-4 px-6 text-white font-medium">{row.nigahban}</td>
+                  <td class="py-4 px-6 text-slate-light">{row.traditional}</td>
+                  <td class="py-4 pl-6 text-slate-light">{row.international}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </FadeIn>
+      </div>
+    </Section>
+
+    {/* CTA */}
+    <Section variant="dark" background="none" className="bg-gradient-to-r from-navy to-charcoal">
+      <div class="max-w-3xl mx-auto text-center">
+        <FadeIn client:visible>
+          <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">
+            آج ہی اپنی عمارت کی حفاظت شروع کریں
+          </h2>
+          <p class="text-lg text-slate-light mb-10">
+            ہر پلان میں مفت ڈیمو شامل ہے۔ عہد کرنے سے پہلے اپنے کیمروں پر نگہبان کو آگ کا پتہ لگاتے ہوئے دیکھیں۔
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a
+              href="/ur/contact"
+              class="bg-amber text-navy font-semibold px-8 py-4 rounded-xl hover:brightness-110 transition-all text-lg"
+            >
+              مفت ڈیمو بک کریں
+            </a>
+          </div>
+        </FadeIn>
+      </div>
+    </Section>
+  </main>
+  <Footer locale={locale} />
+</Layout>

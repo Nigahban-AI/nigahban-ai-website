@@ -1,0 +1,41 @@
+---
+import type { Locale } from '@/lib/i18n';
+import { t } from '@/lib/i18n';
+import Section from './Section.astro';
+import SectionHeader from './SectionHeader.astro';
+import StatCard from '@/components/ui/StatCard.astro';
+import { FadeIn } from '@/components/react/FadeIn';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const items: { key: string; color: 'danger' | 'amber' }[] = [
+  { key: 'fires', color: 'danger' },
+  { key: 'deaths', color: 'danger' },
+  { key: 'noncompliant', color: 'danger' },
+  { key: 'cameras', color: 'amber' },
+];
+---
+
+<Section variant="dark" background="dots" id="stats">
+  <SectionHeader
+    eyebrow={t(locale, 'stats.eyebrow')}
+    title={t(locale, 'stats.title')}
+  />
+
+  <FadeIn client:visible>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
+      {items.map((item) => (
+        <StatCard
+          value={t(locale, `stats.items.${item.key}.value`)}
+          label={t(locale, `stats.items.${item.key}.label`)}
+          source={t(locale, `stats.items.${item.key}.source`)}
+          color={item.color}
+        />
+      ))}
+    </div>
+  </FadeIn>
+</Section>

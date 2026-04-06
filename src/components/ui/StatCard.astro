@@ -1,0 +1,36 @@
+---
+interface Props {
+  value: string;
+  label: string;
+  source: string;
+  color?: 'amber' | 'emerald' | 'danger';
+}
+
+const {
+  value,
+  label,
+  source,
+  color = 'amber',
+} = Astro.props;
+
+const colorClasses: Record<string, string> = {
+  amber: 'text-amber',
+  emerald: 'text-emerald',
+  danger: 'text-danger',
+};
+---
+
+<div class="text-center">
+  <p class:list={[
+    'text-4xl md:text-5xl font-heading font-bold',
+    colorClasses[color],
+  ]}>
+    {value}
+  </p>
+  <p class="text-lg mt-2">
+    {label}
+  </p>
+  <p class="text-xs text-slate-cool mt-1 italic">
+    {source}
+  </p>
+</div>

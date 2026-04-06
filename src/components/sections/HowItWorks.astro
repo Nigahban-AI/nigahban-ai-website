@@ -1,0 +1,52 @@
+---
+import type { Locale } from '@/lib/i18n';
+import { t } from '@/lib/i18n';
+import Section from './Section.astro';
+import SectionHeader from './SectionHeader.astro';
+import GlassCard from '@/components/ui/GlassCard.astro';
+import { FadeIn } from '@/components/react/FadeIn';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const steps = ['connect', 'nvr', 'detect', 'alert'] as const;
+---
+
+<Section variant="charcoal" background="none" id="how-it-works">
+  <SectionHeader
+    eyebrow={t(locale, 'howItWorks.eyebrow')}
+    title={t(locale, 'howItWorks.title')}
+  />
+
+  <FadeIn client:visible>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-16 relative">
+      {steps.map((step, i) => (
+        <div class="relative">
+          {/* Connecting arrow between steps — desktop only */}
+          {i < steps.length - 1 && (
+            <div class="hidden md:block absolute top-6 -right-4 z-10 text-amber text-2xl">
+              &rarr;
+            </div>
+          )}
+
+          <GlassCard>
+            <div class="flex flex-col items-center text-center">
+              <div class="bg-amber text-navy w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-4">
+                {i + 1}
+              </div>
+              <h3 class="text-lg font-heading font-semibold mb-2">
+                {t(locale, `howItWorks.steps.${step}.title`)}
+              </h3>
+              <p class="text-slate-light text-sm">
+                {t(locale, `howItWorks.steps.${step}.description`)}
+              </p>
+            </div>
+          </GlassCard>
+        </div>
+      ))}
+    </div>
+  </FadeIn>
+</Section>

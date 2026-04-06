@@ -1,0 +1,271 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Section from '@/components/sections/Section.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import FeatureCard from '@/components/ui/FeatureCard.astro';
+import GlassCard from '@/components/ui/GlassCard.astro';
+import { FadeIn } from '@/components/react/FadeIn';
+import { getLocale } from '@/lib/i18n';
+import { Image } from 'astro:assets';
+import dashboardFlare from '@/assets/dashboard/flare_dashboard.png';
+import dashboardBoth from '@/assets/dashboard/dashboard-both-detecting.png';
+
+const locale = getLocale(Astro.url);
+
+const detectionFeatures = [
+  {
+    title: 'Fire Detection',
+    description: 'Instantly identifies open flames, sparks, and flare-ups across any environment — from factory floors to storage facilities.',
+    icon: '🔥',
+  },
+  {
+    title: 'Smoke Detection',
+    description: 'Catches early-stage smoke before flames even appear, giving you critical extra minutes to respond and evacuate.',
+    icon: '🌫',
+  },
+  {
+    title: 'Multi-Camera Support',
+    description: 'Monitor dozens of camera feeds simultaneously from a single server. Scale as your building grows.',
+    icon: '📹',
+  },
+  {
+    title: 'Night & Low-Light',
+    description: 'Works around the clock — our AI adapts to darkness, infrared feeds, and poor lighting conditions automatically.',
+    icon: '🌙',
+  },
+  {
+    title: 'Crowded Environments',
+    description: 'Reliably detects fire and smoke even in busy areas with high foot traffic, moving machinery, or visual clutter.',
+    icon: '👥',
+  },
+  {
+    title: 'Real-Time Processing',
+    description: 'Every frame is analyzed in real time. No batching, no delays — from detection to alert in under 3 seconds.',
+    icon: '⚡',
+  },
+];
+
+const alertChannels = [
+  {
+    title: 'WhatsApp Alerts',
+    description: 'Get instant WhatsApp messages with detection frames directly to your phone. The fastest way to know what is happening on-site.',
+  },
+  {
+    title: 'Email Notifications',
+    description: 'Detailed email reports with captured frames, camera location, timestamp, and severity level — perfect for record-keeping.',
+  },
+  {
+    title: 'Telegram Bot',
+    description: 'Real-time Telegram notifications with frame captures. Great for team channels and security group chats.',
+  },
+  {
+    title: 'Voice Call Alerts',
+    description: 'Automated voice calls for critical detections. Ensures you are alerted even if you miss a message notification.',
+  },
+];
+
+const specs = [
+  { label: 'Detection Time', value: '< 3 seconds' },
+  { label: 'Accuracy', value: '99.52%' },
+  { label: 'Camera Protocol', value: 'RTSP / ONVIF' },
+  { label: 'Cameras per Server', value: 'Up to 75' },
+  { label: 'AI Engine', value: 'Proprietary dual-layer AI verification' },
+  { label: 'Deployment', value: 'On-premises or cloud' },
+];
+---
+
+<Layout title="Product — Nigahban AI Fire Detection">
+  <Header locale={locale} />
+  <main>
+    {/* Hero */}
+    <Section variant="dark" background="dots" id="product-hero">
+      <div class="min-h-[60vh] flex items-center -my-20 lg:-my-28">
+        <div class="max-w-3xl">
+          <FadeIn client:visible>
+            <p class="text-amber text-sm font-semibold tracking-widest uppercase mb-4">Product</p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight mb-6">
+              AI Fire Detection That Works With
+              <span class="text-amber"> Your Cameras</span>
+            </h1>
+            <p class="text-xl text-slate-light mb-8 max-w-2xl">
+              Our proprietary AI engine transforms your existing CCTV into an intelligent fire and smoke detection system — no new hardware, no complex setup.
+            </p>
+            <a
+              href="/contact"
+              class="bg-amber text-navy font-semibold px-8 py-4 rounded-xl hover:brightness-110 transition-all text-lg"
+            >
+              Book a Free Demo
+            </a>
+          </FadeIn>
+        </div>
+      </div>
+    </Section>
+
+    {/* Detection Capabilities */}
+    <Section variant="light" background="grid" id="detection-capabilities">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="Capabilities"
+          title="What Nigahban Detects"
+          description="Six core detection capabilities powered by our proprietary AI — trained on thousands of real fire scenarios from Pakistani buildings."
+        />
+      </FadeIn>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+        {detectionFeatures.map((feature, i) => (
+          <FadeIn client:visible delay={i * 0.1}>
+            <GlassCard className="bg-white h-full">
+              <div class="w-12 h-12 rounded-xl bg-amber/10 flex items-center justify-center mb-4 text-2xl">
+                {feature.icon}
+              </div>
+              <h3 class="text-xl font-heading font-semibold mb-2">{feature.title}</h3>
+              <p class="text-slate-cool">{feature.description}</p>
+            </GlassCard>
+          </FadeIn>
+        ))}
+      </div>
+    </Section>
+
+    {/* Dashboard */}
+    <Section variant="charcoal" id="dashboard">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="Dashboard"
+          title="Complete Visibility, One Screen"
+          description="Monitor every camera, review detections, and manage alerts from the Nigahban NVR dashboard."
+        />
+      </FadeIn>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-16 items-center">
+        <FadeIn client:visible direction="left">
+          <div class="space-y-6">
+            <Image
+              src={dashboardFlare}
+              alt="Nigahban Flare Dashboard"
+              class="rounded-2xl shadow-2xl shadow-amber/10 w-full h-auto"
+              widths={[400, 800]}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+            <Image
+              src={dashboardBoth}
+              alt="Nigahban Dashboard detecting fire and smoke"
+              class="rounded-2xl shadow-2xl shadow-amber/10 w-full h-auto"
+              widths={[400, 800]}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+          </div>
+        </FadeIn>
+        <FadeIn client:visible direction="right" delay={0.2}>
+          <div class="space-y-6">
+            <h3 class="text-2xl font-heading font-bold">Everything You Need to Stay Protected</h3>
+            <ul class="space-y-4">
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-amber flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <div>
+                  <strong>Live Camera Grid</strong>
+                  <p class="text-slate-light">View all your cameras in real time with detection overlays highlighting threats as they appear.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-amber flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <div>
+                  <strong>Detection History</strong>
+                  <p class="text-slate-light">Browse past detections with timestamps, frame captures, and confidence scores for auditing.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-amber flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <div>
+                  <strong>Alert Configuration</strong>
+                  <p class="text-slate-light">Choose which alert channels to activate, set sensitivity thresholds, and manage notification recipients.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-amber flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <div>
+                  <strong>System Health Monitoring</strong>
+                  <p class="text-slate-light">Track camera connectivity, processing load, and system uptime at a glance.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </FadeIn>
+      </div>
+    </Section>
+
+    {/* Alert Channels */}
+    <Section variant="light" id="alert-channels">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="Alerts"
+          title="Get Notified Your Way"
+          description="Multiple alert channels ensure you never miss a detection — even if one channel is unavailable."
+        />
+      </FadeIn>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+        {alertChannels.map((channel, i) => (
+          <FadeIn client:visible delay={i * 0.1}>
+            <GlassCard className="bg-white h-full">
+              <h3 class="text-xl font-heading font-semibold mb-2">{channel.title}</h3>
+              <p class="text-slate-cool">{channel.description}</p>
+            </GlassCard>
+          </FadeIn>
+        ))}
+      </div>
+    </Section>
+
+    {/* Technical Specs */}
+    <Section variant="dark" id="technical-specs">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="Specifications"
+          title="Built for Performance"
+          description="Enterprise-grade detection performance, optimized for Pakistan's infrastructure."
+        />
+      </FadeIn>
+      <div class="max-w-2xl mx-auto mt-16">
+        <FadeIn client:visible delay={0.2}>
+          <div class="space-y-0 divide-y divide-white/10">
+            {specs.map((spec) => (
+              <div class="flex justify-between items-center py-4">
+                <span class="text-slate-light">{spec.label}</span>
+                <span class="text-amber font-semibold">{spec.value}</span>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+      </div>
+    </Section>
+
+    {/* CTA */}
+    <Section variant="dark" background="none" className="bg-gradient-to-r from-navy to-charcoal">
+      <div class="max-w-3xl mx-auto text-center">
+        <FadeIn client:visible>
+          <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">
+            Ready to Protect Your Building?
+          </h2>
+          <p class="text-lg text-slate-light mb-10">
+            Book a free demo and see Nigahban detect fire on your own camera feeds — live.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a
+              href="/contact"
+              class="bg-amber text-navy font-semibold px-8 py-4 rounded-xl hover:brightness-110 transition-all text-lg"
+            >
+              Book a Free Demo
+            </a>
+          </div>
+        </FadeIn>
+      </div>
+    </Section>
+  </main>
+  <Footer locale={locale} />
+</Layout>

@@ -1,0 +1,79 @@
+---
+import type { Locale } from '@/lib/i18n';
+import { t } from '@/lib/i18n';
+import { Image } from 'astro:assets';
+import heroImage from '@/assets/hero-fire.png';
+import Section from './Section.astro';
+import { FadeIn } from '@/components/react/FadeIn';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const trustBarItems = [
+  t(locale, 'hero.trustBar.hardware'),
+  t(locale, 'hero.trustBar.speed'),
+  t(locale, 'hero.trustBar.cameras'),
+  t(locale, 'hero.trustBar.accuracy'),
+];
+---
+
+<Section variant="dark" background="dots" id="hero">
+  <div class="min-h-[90vh] flex items-center -my-20 lg:-my-28">
+    <div class="lg:grid lg:grid-cols-2 gap-12 items-center w-full">
+      {/* Image — on mobile appears first */}
+      <div class="order-first lg:order-last mb-10 lg:mb-0">
+        <Image
+          src={heroImage}
+          alt="AI fire detection in action"
+          class="rounded-2xl shadow-2xl shadow-amber/20 w-full h-auto"
+          widths={[400, 800]}
+          sizes="(max-width: 1024px) 100vw, 50vw"
+        />
+      </div>
+
+      {/* Text content */}
+      <div class="order-last lg:order-first">
+        <FadeIn client:visible>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight mb-6">
+            {t(locale, 'hero.headline')}
+            <br />
+            <span class="text-amber">{t(locale, 'hero.headlineBold')}</span>
+          </h1>
+
+          <p class="text-xl text-slate-light mb-8 max-w-lg">
+            {t(locale, 'hero.subheadline')}
+          </p>
+
+          <div class="flex flex-wrap gap-4 mb-10">
+            <a
+              href="#contact"
+              class="bg-amber text-navy font-semibold px-6 py-3 rounded-xl hover:brightness-110 transition-all"
+            >
+              {t(locale, 'hero.cta')}
+            </a>
+            <a
+              href="#how-it-works"
+              class="border border-white/20 text-white px-6 py-3 rounded-xl hover:bg-white/10 transition-all"
+            >
+              {t(locale, 'hero.ctaSecondary')}
+            </a>
+          </div>
+
+          <div class="flex gap-6 flex-wrap">
+            {trustBarItems.map((item) => (
+              <span class="flex items-center gap-2 text-sm text-slate-light">
+                <svg class="w-4 h-4 text-amber flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                {item}
+              </span>
+            ))}
+          </div>
+        </FadeIn>
+      </div>
+    </div>
+  </div>
+</Section>

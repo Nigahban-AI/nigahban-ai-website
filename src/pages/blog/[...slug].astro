@@ -1,0 +1,79 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Section from '@/components/sections/Section.astro';
+import { getLocale } from '@/lib/i18n';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const locale = getLocale(Astro.url);
+
+const categoryColors: Record<string, string> = {
+  product: 'bg-amber/10 text-amber-dark',
+  industry: 'bg-blue-500/10 text-blue-700',
+  safety: 'bg-red-500/10 text-red-700',
+  engineering: 'bg-emerald-500/10 text-emerald-700',
+  company: 'bg-purple-500/10 text-purple-700',
+};
+---
+
+<Layout title={`${post.data.title} | Nigahban AI Blog`} description={post.data.description}>
+  <Header locale={locale} />
+  <main>
+    <Section variant="light">
+      <article class="max-w-3xl mx-auto">
+        <header class="mb-10">
+          <span
+            class:list={[
+              'text-xs font-semibold px-2 py-1 rounded inline-block mb-4',
+              categoryColors[post.data.category] || 'bg-amber/10 text-amber-dark',
+            ]}
+          >
+            {post.data.category}
+          </span>
+          <h1 class="text-4xl md:text-5xl font-heading font-bold text-navy mb-4">
+            {post.data.title}
+          </h1>
+          <div class="flex items-center gap-4 text-sm text-slate-cool">
+            <time datetime={post.data.pubDate.toISOString()}>
+              {post.data.pubDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </time>
+            <span>&middot;</span>
+            <span>{post.data.author}</span>
+          </div>
+        </header>
+
+        <div class="prose prose-lg prose-slate max-w-none prose-headings:font-heading prose-headings:text-navy prose-a:text-amber-dark hover:prose-a:text-amber">
+          <Content />
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-slate-cool/10">
+          <a
+            href="/blog"
+            class="inline-flex items-center gap-2 text-amber-dark hover:text-amber font-semibold transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+            </svg>
+            Back to Blog
+          </a>
+        </div>
+      </article>
+    </Section>
+  </main>
+  <Footer locale={locale} />
+</Layout>

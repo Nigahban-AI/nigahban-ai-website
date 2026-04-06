@@ -1,0 +1,87 @@
+---
+import '@/styles/global.css';
+import { getLocale, isRTL, t } from '@/lib/i18n';
+import type { Locale } from '@/lib/i18n';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  locale?: Locale;
+}
+
+const {
+  title,
+  description = 'Nigahban AI — Intelligent fire and smoke detection for your existing CCTV cameras. Protecting Pakistan\'s buildings with AI.',
+  image = '/og/og-home.png',
+  locale = getLocale(Astro.url),
+} = Astro.props;
+
+const rtl = isRTL(locale);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const alternateLocale = locale === 'en' ? 'ur' : 'en';
+const alternatePath = locale === 'en'
+  ? `/ur${Astro.url.pathname}`
+  : Astro.url.pathname.replace(/^\/ur/, '') || '/';
+const alternateURL = new URL(alternatePath, Astro.site);
+---
+
+<!doctype html>
+<html lang={locale} dir={rtl ? 'rtl' : 'ltr'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- i18n alternates -->
+    <link rel="alternate" hreflang={locale} href={canonicalURL} />
+    <link rel="alternate" hreflang={alternateLocale} href={alternateURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:locale" content={locale === 'ur' ? 'ur_PK' : 'en_US'} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site)} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts -->
+    <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/PlusJakartaSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    {rtl && (
+      <link rel="preload" href="/fonts/NotoNastaliqUrdu-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    )}
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'Nigahban AI',
+      url: 'https://nigahban.ai',
+      logo: 'https://nigahban.ai/logo.png',
+      description: 'Intelligent fire and smoke detection for existing CCTV cameras in Pakistan.',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Karachi',
+        addressCountry: 'PK',
+      },
+    })} />
+  </head>
+  <body class="min-h-screen bg-bg text-navy antialiased">
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,270 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Section from '@/components/sections/Section.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import FeatureCard from '@/components/ui/FeatureCard.astro';
+import GlassCard from '@/components/ui/GlassCard.astro';
+import { FadeIn } from '@/components/react/FadeIn';
+import { Image } from 'astro:assets';
+import dashboardFlare from '@/assets/dashboard/flare_dashboard.png';
+import dashboardBoth from '@/assets/dashboard/dashboard-both-detecting.png';
+
+const locale = 'ur' as const;
+
+const detectionFeatures = [
+  {
+    title: 'آگ کا پتہ لگانا',
+    description: 'کسی بھی ماحول میں کھلی آگ، چنگاریوں، اور شعلوں کی فوری شناخت — فیکٹری فلور سے لے کر گودام تک۔',
+    icon: '🔥',
+  },
+  {
+    title: 'دھوئیں کا پتہ لگانا',
+    description: 'شعلے نمودار ہونے سے پہلے ابتدائی مرحلے کے دھوئیں کو پکڑتا ہے، جس سے آپ کو جواب دینے اور انخلا کے لیے اہم اضافی منٹ ملتے ہیں۔',
+    icon: '🌫',
+  },
+  {
+    title: 'ملٹی کیمرا سپورٹ',
+    description: 'ایک ہی سرور سے بیک وقت درجنوں کیمرا فیڈز کی نگرانی کریں۔ جیسے جیسے آپ کی عمارت بڑھے، اسکیل کریں۔',
+    icon: '📹',
+  },
+  {
+    title: 'رات اور کم روشنی',
+    description: 'چوبیس گھنٹے کام کرتا ہے — ہمارا AI اندھیرے، انفراریڈ فیڈز، اور خراب روشنی کے حالات میں خودکار طور پر ایڈجسٹ ہو جاتا ہے۔',
+    icon: '🌙',
+  },
+  {
+    title: 'ہجوم والے ماحول',
+    description: 'زیادہ آمد و رفت، چلتی مشینری، یا بصری بے ترتیبی والے مصروف علاقوں میں بھی آگ اور دھوئیں کا قابل اعتماد پتہ لگاتا ہے۔',
+    icon: '👥',
+  },
+  {
+    title: 'ریئل ٹائم پروسیسنگ',
+    description: 'ہر فریم کا ریئل ٹائم میں تجزیہ ہوتا ہے۔ کوئی بیچنگ نہیں، کوئی تاخیر نہیں — پتہ لگانے سے الرٹ تک 3 سیکنڈ سے بھی کم۔',
+    icon: '⚡',
+  },
+];
+
+const alertChannels = [
+  {
+    title: 'WhatsApp الرٹس',
+    description: 'اپنے فون پر براہ راست ڈیٹیکشن فریمز کے ساتھ فوری WhatsApp پیغامات حاصل کریں۔ سائٹ پر کیا ہو رہا ہے جاننے کا تیز ترین طریقہ۔',
+  },
+  {
+    title: 'ای میل اطلاعات',
+    description: 'کیپچر شدہ فریمز، کیمرے کی جگہ، ٹائم اسٹیمپ، اور شدت کی سطح کے ساتھ تفصیلی ای میل رپورٹس — ریکارڈ رکھنے کے لیے بہترین۔',
+  },
+  {
+    title: 'Telegram بوٹ',
+    description: 'فریم کیپچرز کے ساتھ ریئل ٹائم Telegram اطلاعات۔ ٹیم چینلز اور سیکیورٹی گروپ چیٹس کے لیے بہترین۔',
+  },
+  {
+    title: 'وائس کال الرٹس',
+    description: 'اہم ڈیٹیکشنز کے لیے خودکار وائس کالز۔ یقینی بناتا ہے کہ آپ کو الرٹ ملے چاہے آپ پیغام کی اطلاع سے محروم رہ جائیں۔',
+  },
+];
+
+const specs = [
+  { label: 'پتہ لگانے کا وقت', value: '< 3 سیکنڈ' },
+  { label: 'درستگی', value: '99.52%' },
+  { label: 'کیمرا پروٹوکول', value: 'RTSP / ONVIF' },
+  { label: 'فی سرور کیمرے', value: '75 تک' },
+  { label: 'AI انجن', value: 'ملکیتی ملٹی لیئر AI تصدیق' },
+  { label: 'تعیناتی', value: 'آن پریمائسز یا کلاؤڈ' },
+];
+---
+
+<Layout title="نگہبان AI — پروڈکٹ">
+  <Header locale={locale} />
+  <main>
+    {/* Hero */}
+    <Section variant="dark" background="dots" id="product-hero">
+      <div class="min-h-[60vh] flex items-center -my-20 lg:-my-28">
+        <div class="max-w-3xl">
+          <FadeIn client:visible>
+            <p class="text-amber text-sm font-semibold tracking-widest uppercase mb-4">پروڈکٹ</p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight mb-6">
+              AI آگ کا پتہ لگانا جو
+              <span class="text-amber"> آپ کے کیمروں</span> کے ساتھ کام کرتا ہے
+            </h1>
+            <p class="text-xl text-slate-light mb-8 max-w-2xl">
+              ہمارا ملکیتی AI انجن آپ کے موجودہ CCTV کو ذہین آگ اور دھوئیں کے پتہ لگانے کے نظام میں تبدیل کرتا ہے — کوئی نیا ہارڈویئر نہیں، کوئی پیچیدہ سیٹ اپ نہیں۔
+            </p>
+            <a
+              href="/ur/contact"
+              class="bg-amber text-navy font-semibold px-8 py-4 rounded-xl hover:brightness-110 transition-all text-lg"
+            >
+              مفت ڈیمو بک کریں
+            </a>
+          </FadeIn>
+        </div>
+      </div>
+    </Section>
+
+    {/* Detection Capabilities */}
+    <Section variant="light" background="grid" id="detection-capabilities">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="صلاحیتیں"
+          title="نگہبان کیا پتہ لگاتا ہے"
+          description="ہمارے ملکیتی AI سے چلنے والی چھ بنیادی ڈیٹیکشن صلاحیتیں — پاکستانی عمارتوں کے ہزاروں حقیقی آگ کے منظرناموں پر تربیت یافتہ۔"
+        />
+      </FadeIn>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+        {detectionFeatures.map((feature, i) => (
+          <FadeIn client:visible delay={i * 0.1}>
+            <GlassCard className="bg-white h-full">
+              <div class="w-12 h-12 rounded-xl bg-amber/10 flex items-center justify-center mb-4 text-2xl">
+                {feature.icon}
+              </div>
+              <h3 class="text-xl font-heading font-semibold mb-2">{feature.title}</h3>
+              <p class="text-slate-cool">{feature.description}</p>
+            </GlassCard>
+          </FadeIn>
+        ))}
+      </div>
+    </Section>
+
+    {/* Dashboard */}
+    <Section variant="charcoal" id="dashboard">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="ڈیش بورڈ"
+          title="مکمل نظر، ایک سکرین"
+          description="نگہبان NVR ڈیش بورڈ سے ہر کیمرے کی نگرانی کریں، ڈیٹیکشنز کا جائزہ لیں، اور الرٹس کا انتظام کریں۔"
+        />
+      </FadeIn>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-16 items-center">
+        <FadeIn client:visible direction="left">
+          <div class="space-y-6">
+            <Image
+              src={dashboardFlare}
+              alt="نگہبان فلیئر ڈیش بورڈ"
+              class="rounded-2xl shadow-2xl shadow-amber/10 w-full h-auto"
+              widths={[400, 800]}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+            <Image
+              src={dashboardBoth}
+              alt="نگہبان ڈیش بورڈ آگ اور دھوئیں کا پتہ لگا رہا ہے"
+              class="rounded-2xl shadow-2xl shadow-amber/10 w-full h-auto"
+              widths={[400, 800]}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+          </div>
+        </FadeIn>
+        <FadeIn client:visible direction="right" delay={0.2}>
+          <div class="space-y-6">
+            <h3 class="text-2xl font-heading font-bold">محفوظ رہنے کے لیے آپ کو جو کچھ چاہیے</h3>
+            <ul class="space-y-4">
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-amber flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <div>
+                  <strong>لائیو کیمرا گرڈ</strong>
+                  <p class="text-slate-light">ڈیٹیکشن اوورلیز کے ساتھ اپنے تمام کیمرے ریئل ٹائم میں دیکھیں جو خطرات نمودار ہوتے ہی نمایاں کرتے ہیں۔</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-amber flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <div>
+                  <strong>ڈیٹیکشن ہسٹری</strong>
+                  <p class="text-slate-light">آڈیٹنگ کے لیے ٹائم اسٹیمپس، فریم کیپچرز، اور کانفیڈنس اسکورز کے ساتھ پچھلی ڈیٹیکشنز براؤز کریں۔</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-amber flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <div>
+                  <strong>الرٹ کنفیگریشن</strong>
+                  <p class="text-slate-light">منتخب کریں کون سے الرٹ چینلز فعال ہوں، حساسیت کی حدیں مقرر کریں، اور اطلاع وصول کنندگان کا انتظام کریں۔</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-amber flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <div>
+                  <strong>سسٹم ہیلتھ مانیٹرنگ</strong>
+                  <p class="text-slate-light">کیمرا کنیکٹیویٹی، پروسیسنگ لوڈ، اور سسٹم اپ ٹائم ایک نظر میں ٹریک کریں۔</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </FadeIn>
+      </div>
+    </Section>
+
+    {/* Alert Channels */}
+    <Section variant="light" id="alert-channels">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="الرٹس"
+          title="اپنے طریقے سے مطلع ہوں"
+          description="متعدد الرٹ چینلز یقینی بناتے ہیں کہ آپ کوئی ڈیٹیکشن نہ چوکیں — چاہے ایک چینل دستیاب نہ ہو۔"
+        />
+      </FadeIn>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+        {alertChannels.map((channel, i) => (
+          <FadeIn client:visible delay={i * 0.1}>
+            <GlassCard className="bg-white h-full">
+              <h3 class="text-xl font-heading font-semibold mb-2">{channel.title}</h3>
+              <p class="text-slate-cool">{channel.description}</p>
+            </GlassCard>
+          </FadeIn>
+        ))}
+      </div>
+    </Section>
+
+    {/* Technical Specs */}
+    <Section variant="dark" id="technical-specs">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="تفصیلات"
+          title="کارکردگی کے لیے بنایا گیا"
+          description="انٹرپرائز گریڈ ڈیٹیکشن کارکردگی، پاکستان کے بنیادی ڈھانچے کے لیے بہتر بنائی گئی۔"
+        />
+      </FadeIn>
+      <div class="max-w-2xl mx-auto mt-16">
+        <FadeIn client:visible delay={0.2}>
+          <div class="space-y-0 divide-y divide-white/10">
+            {specs.map((spec) => (
+              <div class="flex justify-between items-center py-4">
+                <span class="text-slate-light">{spec.label}</span>
+                <span class="text-amber font-semibold">{spec.value}</span>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+      </div>
+    </Section>
+
+    {/* CTA */}
+    <Section variant="dark" background="none" className="bg-gradient-to-r from-navy to-charcoal">
+      <div class="max-w-3xl mx-auto text-center">
+        <FadeIn client:visible>
+          <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">
+            اپنی عمارت کی حفاظت کے لیے تیار ہیں؟
+          </h2>
+          <p class="text-lg text-slate-light mb-10">
+            مفت ڈیمو بک کریں اور نگہبان کو اپنے کیمرا فیڈز پر لائیو آگ کا پتہ لگاتے ہوئے دیکھیں۔
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a
+              href="/ur/contact"
+              class="bg-amber text-navy font-semibold px-8 py-4 rounded-xl hover:brightness-110 transition-all text-lg"
+            >
+              مفت ڈیمو بک کریں
+            </a>
+          </div>
+        </FadeIn>
+      </div>
+    </Section>
+  </main>
+  <Footer locale={locale} />
+</Layout>

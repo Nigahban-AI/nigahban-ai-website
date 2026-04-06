@@ -1,0 +1,28 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Hero from '@/components/sections/Hero.astro';
+import ValueProps from '@/components/sections/ValueProps.astro';
+import HowItWorks from '@/components/sections/HowItWorks.astro';
+import Stats from '@/components/sections/Stats.astro';
+import UseCases from '@/components/sections/UseCases.astro';
+import Comparison from '@/components/sections/Comparison.astro';
+import CTA from '@/components/sections/CTA.astro';
+
+const locale = 'ur' as const;
+---
+
+<Layout title="نگہبان AI — موجودہ CCTV کے لیے ذہین آگ کا پتہ لگانا">
+  <Header locale={locale} />
+  <main>
+    <Hero locale={locale} />
+    <ValueProps locale={locale} />
+    <HowItWorks locale={locale} />
+    <Stats locale={locale} />
+    <UseCases locale={locale} />
+    <Comparison locale={locale} />
+    <CTA locale={locale} />
+  </main>
+  <Footer locale={locale} />
+</Layout>

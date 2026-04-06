@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import { getLocale, t } from '@/lib/i18n';
+import type { Locale } from '@/lib/i18n';
+import { ScrollHeader } from '@/components/react/ScrollHeader';
+import { MobileNav } from '@/components/react/MobileNav';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import logoSrc from '@/assets/logo.png';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = getLocale(Astro.url) } = Astro.props;
+
+const navLinks = [
+  { label: t(locale, 'nav.home'), href: locale === 'ur' ? '/ur' : '/' },
+  { label: t(locale, 'nav.product'), href: locale === 'ur' ? '/ur/product' : '/product' },
+  { label: t(locale, 'nav.howItWorks'), href: locale === 'ur' ? '/ur/#how-it-works' : '/#how-it-works' },
+  { label: t(locale, 'nav.pricing'), href: locale === 'ur' ? '/ur/pricing' : '/pricing' },
+  { label: t(locale, 'nav.about'), href: locale === 'ur' ? '/ur/about' : '/about' },
+  { label: t(locale, 'nav.blog'), href: locale === 'ur' ? '/ur/blog' : '/blog' },
+  { label: t(locale, 'nav.contact'), href: locale === 'ur' ? '/ur/contact' : '/contact' },
+];
+---
+
+<header>
+  <ScrollHeader client:load>
+    <nav class="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
+      {/* Logo */}
+      <a href={locale === 'ur' ? '/ur' : '/'} class="flex items-center gap-2">
+        <Image src={logoSrc} alt="Nigahban AI" height={32} width={32} />
+        <span class="text-white font-heading font-bold text-lg">NIGAHBAN</span>
+      </a>
+
+      {/* Desktop navigation */}
+      <div class="hidden md:flex items-center gap-6">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="text-white hover:text-amber transition text-sm"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      {/* Right side: language switcher + CTA + mobile nav */}
+      <div class="flex items-center gap-3">
+        <LanguageSwitcher />
+        <a
+          href={locale === 'ur' ? '/ur/contact' : '/contact'}
+          class="hidden md:inline-block bg-amber text-navy font-semibold rounded-lg px-4 py-2 text-sm"
+        >
+          {t(locale, 'nav.bookDemo')}
+        </a>
+        {/* Mobile hamburger */}
+        <div class="md:hidden">
+          <MobileNav
+            client:media="(max-width: 768px)"
+            links={navLinks}
+            ctaLabel={t(locale, 'nav.bookDemo')}
+            ctaHref={locale === 'ur' ? '/ur/contact' : '/contact'}
+            locale={locale}
+          />
+        </div>
+      </div>
+    </nav>
+  </ScrollHeader>
+</header>

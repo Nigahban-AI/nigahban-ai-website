@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "home": "Home",
+    "product": "Product",
+    "howItWorks": "How It Works",
+    "pricing": "Pricing",
+    "about": "About",
+    "blog": "Blog",
+    "contact": "Contact",
+    "bookDemo": "Book Demo",
+    "switchLang": "اردو"
+  },
+  "hero": {
+    "headline": "Cameras Watch. Nobody Alerts.",
+    "headlineBold": "Nigahban Changes That.",
+    "subheadline": "Turn your existing CCTV into an AI fire early-warning system. Zero hardware costs. Detection in under 3 seconds.",
+    "cta": "Book Free Demo",
+    "ctaSecondary": "See How It Works",
+    "trustBar": {
+      "hardware": "Zero Hardware Cost",
+      "speed": "< 3 Second Detection",
+      "cameras": "Any IP Camera",
+      "accuracy": "99.52% Accuracy"
+    }
+  },
+  "valueProps": {
+    "eyebrow": "WHY NIGAHBAN",
+    "title": "Built for Pakistan's Fire Safety Crisis",
+    "items": {
+      "hardware": {
+        "title": "Zero Hardware Cost",
+        "description": "Works with your existing CCTV cameras. No sensors, no installation, no rewiring. Just connect and protect."
+      },
+      "speed": {
+        "title": "< 3 Second Detection",
+        "description": "Our proprietary AI engine detects fire and smoke in under 3 seconds — before traditional alarms even trigger."
+      },
+      "accuracy": {
+        "title": "99.52% Accuracy",
+        "description": "Multi-layer AI verification eliminates false positives. Near-zero false alarms means real alerts, not noise."
+      }
+    }
+  },
+  "howItWorks": {
+    "eyebrow": "HOW IT WORKS",
+    "title": "From Camera to Alert in Seconds",
+    "steps": {
+      "connect": {
+        "title": "Connect CCTV",
+        "description": "Link your existing cameras via RTSP stream"
+      },
+      "nvr": {
+        "title": "Plug Into NVR",
+        "description": "Nigahban connects to your existing NVR/DVR"
+      },
+      "detect": {
+        "title": "AI Detects Threat",
+        "description": "Proprietary AI engine analyzes every frame in real-time"
+      },
+      "alert": {
+        "title": "Instant Alert",
+        "description": "WhatsApp, Email, Telegram alerts sent in seconds"
+      }
+    }
+  },
+  "stats": {
+    "eyebrow": "THE CRISIS",
+    "title": "Pakistan's Fire Safety Emergency",
+    "items": {
+      "fires": { "value": "30,000+", "label": "Fire incidents per year", "source": "Rescue 1122 / Geo News" },
+      "deaths": { "value": "73", "label": "Deaths in Gul Plaza fire, Jan 2026", "source": "Dawn News" },
+      "noncompliant": { "value": "94%", "label": "Karachi buildings non-compliant", "source": "Sindh Govt Audit" },
+      "cameras": { "value": "2.5M+", "label": "CCTV cameras in Punjab alone", "source": "PSCA / Radio Pakistan" }
+    }
+  },
+  "useCases": {
+    "eyebrow": "WHO IT'S FOR",
+    "title": "Protecting Pakistan's Industrial Heart",
+    "items": {
+      "factories": { "title": "Factories", "stat": "12,000+", "location": "in Karachi alone", "description": "Textile mills, chemical plants, and manufacturing units — where fires cause the most damage." },
+      "malls": { "title": "Shopping Malls", "stat": "33+", "location": "major malls", "description": "High foot traffic, food courts, and multi-tenant spaces requiring 24/7 fire monitoring." },
+      "warehouses": { "title": "Warehouses", "stat": "5,000+", "location": "in Korangi zone", "description": "High-value inventory at risk overnight. One fire can destroy millions in goods." },
+      "plazas": { "title": "Commercial Plazas", "stat": "1,000s", "location": "across the city", "description": "Multi-story, multi-tenant buildings with shared fire risk and slow evacuation." }
+    }
+  },
+  "comparison": {
+    "eyebrow": "WHY US",
+    "title": "Nigahban vs The Alternatives",
+    "headers": ["Feature", "Traditional Alarm", "International AI", "Nigahban"],
+    "rows": {
+      "speed": ["Detection Time", "5-30 minutes", "~30 seconds", "< 3 seconds"],
+      "hardware": ["Hardware Required", "Custom sensors", "IP cameras", "Existing CCTV"],
+      "cost": ["Annual Cost", "PKR 500K+ install", "$50K+/year", "PKR 30K/year"],
+      "accuracy": ["Accuracy", "~70%", "~90%", "99.52%"],
+      "market": ["Market Focus", "Global", "US/EU", "Pakistan + MENA"]
+    }
+  },
+  "cta": {
+    "title": "Protect Your Building Today",
+    "description": "Join the first AI fire detection network in Pakistan. Free pilot for qualified buildings.",
+    "demo": "Book Free Demo",
+    "whatsapp": "WhatsApp Us"
+  },
+  "footer": {
+    "company": {
+      "title": "Company",
+      "about": "About",
+      "careers": "Careers",
+      "press": "Press"
+    },
+    "product": {
+      "title": "Product",
+      "features": "Features",
+      "pricing": "Pricing",
+      "howItWorks": "How It Works"
+    },
+    "resources": {
+      "title": "Resources",
+      "blog": "Blog",
+      "docs": "Documentation",
+      "support": "Support"
+    },
+    "contact": {
+      "title": "Contact",
+      "email": "info@nigahban.ai",
+      "phone": "+92-XXX-XXXXXXX",
+      "address": "NIC Karachi, Pakistan"
+    },
+    "copyright": "2026 Nigahban AI. All rights reserved.",
+    "tagline": "Protecting Pakistan through intelligent fire detection."
+  }
+}

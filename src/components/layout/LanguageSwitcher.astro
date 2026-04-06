@@ -1,0 +1,21 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const currentLocale = Astro.currentLocale ?? 'en';
+const targetLocale = currentLocale === 'en' ? 'ur' : 'en';
+const label = currentLocale === 'en' ? 'اردو' : 'English';
+
+// Build the equivalent path in the target locale
+const currentPath = Astro.url.pathname;
+const strippedPath = currentLocale === 'ur'
+  ? currentPath.replace(/^\/ur\/?/, '/') || '/'
+  : currentPath;
+const targetHref = getRelativeLocaleUrl(targetLocale, strippedPath);
+---
+
+<a
+  href={targetHref}
+  class="border border-white/20 rounded px-3 py-1 text-sm hover:bg-white/10 transition"
+>
+  {label}
+</a>

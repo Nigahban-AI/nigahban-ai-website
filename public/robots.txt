@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nigahban.ai/sitemap-index.xml

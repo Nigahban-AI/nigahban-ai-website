@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/* === Nigahban Design Tokens === */
+@theme {
+  --color-navy: #0A1628;
+  --color-navy-light: #0F172A;
+  --color-amber: #F59E0B;
+  --color-amber-dark: #D97706;
+  --color-amber-light: #FCD34D;
+  --color-slate-cool: #64748B;
+  --color-slate-light: #94A3B8;
+  --color-emerald: #10B981;
+  --color-danger: #EF4444;
+  --color-bg: #F8FAFC;
+  --color-charcoal: #0F172A;
+  --color-whatsapp: #25D366;
+
+  --font-heading: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-urdu: 'Noto Nastaliq Urdu', serif;
+}
+
+/* === Font Faces === */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/fonts/PlusJakartaSans-Variable.woff2') format('woff2');
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Nastaliq Urdu';
+  src: url('/fonts/NotoNastaliqUrdu-Variable.woff2') format('woff2');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+/* === Base === */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-navy);
+  background-color: var(--color-bg);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* === RTL Support === */
+[dir="rtl"] {
+  font-family: var(--font-urdu), var(--font-body);
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: var(--font-urdu), var(--font-heading);
+}
+
+/* === Glassmorphism === */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* === Background Patterns === */
+.bg-dots {
+  background-image: radial-gradient(circle, rgba(100, 116, 139, 0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(100, 116, 139, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 116, 139, 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* === Scroll Animations === */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+
+/* === Prose for Blog === */
+.prose {
+  max-width: 72ch;
+  line-height: 1.8;
+}
+
+.prose h2 {
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+.prose p {
+  margin-bottom: 1.25em;
+}
+
+.prose a {
+  color: var(--color-amber-dark);
+  text-decoration: underline;
+}

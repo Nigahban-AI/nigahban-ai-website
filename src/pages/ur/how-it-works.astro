@@ -1,0 +1,208 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Section from '@/components/sections/Section.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import GlassCard from '@/components/ui/GlassCard.astro';
+import { FadeIn } from '@/components/react/FadeIn';
+
+const locale = 'ur' as const;
+
+const steps = [
+  {
+    number: '01',
+    title: 'اپنے CCTV سیٹ اپ کا جائزہ لیں',
+    description: 'ہم آپ کے موجودہ کیمرا انفراسٹرکچر کا جائزہ لیتے ہیں — برانڈ، ماڈل، پوزیشننگ، اور نیٹ ورک سیٹ اپ۔ نگہبان کسی بھی IP کیمرے کے ساتھ کام کرتا ہے جو RTSP یا ONVIF پروٹوکول سپورٹ کرتا ہے، بشمول Hikvision، Dahua، Axis، اور مزید۔',
+    detail: 'نئے کیمروں کی ضرورت نہیں۔ اگر آپ کا CCTV پہلے سے ریکارڈ کر رہا ہے، تو یہ نگہبان کے ساتھ کام کر سکتا ہے۔',
+  },
+  {
+    number: '02',
+    title: 'نگہبان سے جوڑیں',
+    description: 'ہماری ٹیم آپ کے کیمروں سے RTSP سٹریمز کو نگہبان سسٹم میں کنفیگر کرتی ہے۔ زیادہ تر سیٹ اپس کے لیے یہ ایک گھنٹے سے بھی کم وقت لیتا ہے۔ سسٹم آپ کے موجودہ NVR سے یا براہ راست انفرادی IP کیمروں سے جڑتا ہے۔',
+    detail: 'آن پریمائسز تعیناتی کا مطلب ہے آپ کے ویڈیو فیڈز کبھی آپ کی عمارت سے باہر نہیں جاتے۔',
+  },
+  {
+    number: '03',
+    title: 'AI نگرانی شروع کرتا ہے',
+    description: 'جڑنے کے بعد، نگہبان ریئل ٹائم میں ہر فریم کا تجزیہ شروع کر دیتا ہے۔ ہمارا ملکیتی AI انجن مسلسل ڈیٹیکشن چلاتا ہے — تمام منسلک کیمروں میں بیک وقت آگ، دھوئیں، اور حرارتی بے قاعدگیوں کی شناخت کرتا ہے۔',
+    detail: 'سسٹم 24/7 چلتا ہے بغیر کسی انسانی مداخلت کی ضرورت کے۔',
+  },
+  {
+    number: '04',
+    title: 'فوری الرٹس حاصل کریں',
+    description: 'جب خطرے کا پتہ چلتا ہے، سیکنڈوں میں آپ کے منتخب چینلز — WhatsApp، Email، Telegram، یا وائس کال — پر الرٹس بھیجے جاتے ہیں۔ ہر الرٹ میں کیپچر شدہ فریم، کیمرے کی جگہ، اور ٹائم اسٹیمپ شامل ہوتا ہے۔',
+    detail: 'ڈیش بورڈ سے ترتیب دیں کہ کسے الرٹ ملے، کیسے، اور کن کیمروں کے لیے۔',
+  },
+];
+
+const scenarios = [
+  {
+    title: 'SITE ایریا میں ٹیکسٹائل فیکٹری',
+    problem: 'رات کی شفٹ میں کم سے کم نگرانی۔ ایک مشین خام کپاس کے گٹھوں کے قریب زیادہ گرم ہو جاتی ہے — اس سیکشن میں کوئی ورکر نوٹس نہیں کرتا۔',
+    solution: 'نگہبان فیکٹری کے CCTV کے ذریعے مشین ایریا سے اٹھتے ابتدائی دھوئیں کا پتہ لگاتا ہے۔',
+    outcome: 'شفٹ سپروائزر کو 2 سیکنڈ کے اندر WhatsApp الرٹ بھیجا جاتا ہے، فریم کیپچر کے ساتھ جو واضح طور پر دکھاتا ہے کون سی مشین اور ایریا ہے۔ آگ انوینٹری تک پھیلنے سے پہلے قابو میں آ جاتی ہے۔',
+  },
+  {
+    title: 'کورنگی گودام',
+    problem: 'کیمیکل سٹوریج ایریا۔ شارٹ سرکٹ سے محدود آمد و رفت والے سیکشن میں آتش گیر مواد بھڑک اٹھتا ہے۔ قریب کوئی نہیں ہے۔',
+    solution: 'نگہبان متعدد کیمرا اینگلز سے شعلوں کی شناخت کرتا ہے، زیادہ سے زیادہ اعتماد کے لیے ملٹی لیئر AI تصدیق کرتا ہے۔',
+    outcome: 'دو کیمروں سے فریم کیپچرز کے ساتھ ای میل الرٹ سہولت مینیجر اور فائر سیفٹی آفیسر کو بھیجا جاتا ہے۔ منٹوں میں ہنگامی ردعمل شروع ہو جاتا ہے۔',
+  },
+  {
+    title: 'لکی ون مال',
+    problem: 'فوڈ کورٹ کچن دن بھر بھاپ اور کھانا پکانے کا دھواں پیدا کرتا ہے۔ روایتی سموک ڈیٹیکٹرز مسلسل جھوٹے الارم دیتے۔',
+    solution: 'نگہبان عام کھانا پکانے کی بھاپ اور اصل آگ یا خطرناک دھوئیں میں فرق کرتا ہے، جھوٹے مثبت نتائج کو کم کرتا ہے۔',
+    outcome: 'جب حقیقی کچن کی آگ لگتی ہے، سسٹم اسے صحیح طور پر شناخت کرتا ہے اور انخلا کا الرٹ بھیجتا ہے — جبکہ دن بھر معمول کی بھاپ کو نظرانداز کرتا ہے۔',
+  },
+];
+
+const faqs = [
+  {
+    question: 'کون سے کیمرے سپورٹ ہوتے ہیں؟',
+    answer: 'کوئی بھی IP کیمرا جو RTSP یا ONVIF پروٹوکول سپورٹ کرتا ہے۔ اس میں تمام بڑے برانڈز شامل ہیں — Hikvision، Dahua، Axis، Uniview، اور بہت سے اور۔ اگر آپ کا کیمرا فی الحال NVR پر ریکارڈ ہو رہا ہے، تو یہ نگہبان کے ساتھ کام کرے گا۔',
+  },
+  {
+    question: 'پتہ لگانا کتنا تیز ہے؟',
+    answer: 'شعلہ یا دھواں نمودار ہونے سے لے کر آپ کے فون تک الرٹ پہنچنے تک 3 سیکنڈ سے کم۔ ہماری ملٹی لیئر AI تصدیق درستگی کی قربانی دیے بغیر رفتار کو یقینی بناتی ہے۔',
+  },
+  {
+    question: 'کیا مجھے نئے ہارڈویئر کی ضرورت ہے؟',
+    answer: 'نہیں۔ نگہبان آپ کے موجودہ CCTV کیمروں اور نیٹ ورک کے ساتھ کام کرتا ہے۔ ہم اپنی پروسیسنگ یونٹ آن پریمائسز یا کلاؤڈ میں تعینات کرتے ہیں — آپ کے کیمرے بالکل وہیں رہتے ہیں جہاں ہیں۔',
+  },
+  {
+    question: 'اگر انٹرنیٹ بند ہو جائے تو؟',
+    answer: 'ہماری آن پریمائسز تعیناتی کا آپشن سب کچھ مقامی طور پر پروسیس کرتا ہے۔ اگر کنیکٹیویٹی منقطع ہو، الرٹس قطار میں لگ جاتے ہیں اور کنکشن بحال ہوتے ہی فراہم کر دیے جاتے ہیں۔ آپ کی حفاظت کبھی نہیں رکتی۔',
+  },
+  {
+    question: 'میں کیسے شروع کروں؟',
+    answer: 'مفت ڈیمو بک کریں۔ ہم آپ کے ایک کیمرے سے لائیو جڑیں گے اور آپ کو ریئل ٹائم میں نگہبان کو آگ کا پتہ لگاتے دکھائیں گے۔ کوئی عہد نہیں، ڈیمو کے لیے کوئی سیٹ اپ فیس نہیں۔',
+  },
+];
+---
+
+<Layout title="نگہبان AI — کیسے کام کرتا ہے">
+  <Header locale={locale} />
+  <main>
+    {/* Hero */}
+    <Section variant="dark" background="dots" id="hiw-hero">
+      <div class="min-h-[60vh] flex items-center -my-20 lg:-my-28">
+        <div class="max-w-3xl">
+          <FadeIn client:visible>
+            <p class="text-amber text-sm font-semibold tracking-widest uppercase mb-4">کیسے کام کرتا ہے</p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight mb-6">
+              نگہبان آپ کی عمارت کی
+              <span class="text-amber"> حفاظت کیسے کرتا ہے</span>
+            </h1>
+            <p class="text-xl text-slate-light mb-8 max-w-2xl">
+              آپ کے موجودہ CCTV سے فوری آگ کے الرٹس تک — یہاں بالکل واضح ہے کہ نگہبان کیسے کام کرتا ہے، قدم بہ قدم۔
+            </p>
+          </FadeIn>
+        </div>
+      </div>
+    </Section>
+
+    {/* Integration Steps */}
+    <Section variant="light" background="grid" id="integration-steps">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="سیٹ اپ"
+          title="حفاظت کے لیے چار اقدامات"
+          description="نگہبان کے ساتھ شروع کرنا آسان ہے۔ کوئی نئے کیمرے نہیں، کوئی تعمیرات نہیں، کوئی ڈاؤن ٹائم نہیں۔"
+        />
+      </FadeIn>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+        {steps.map((step, i) => (
+          <FadeIn client:visible delay={i * 0.15}>
+            <GlassCard className="bg-white h-full">
+              <div class="flex items-center gap-4 mb-4">
+                <span class="text-4xl font-heading font-bold text-amber/30">{step.number}</span>
+                <h3 class="text-xl font-heading font-semibold">{step.title}</h3>
+              </div>
+              <p class="text-slate-cool mb-4">{step.description}</p>
+              <p class="text-sm text-amber font-medium">{step.detail}</p>
+            </GlassCard>
+          </FadeIn>
+        ))}
+      </div>
+    </Section>
+
+    {/* Scenario Walkthroughs */}
+    <Section variant="charcoal" id="scenarios">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="حقیقی منظرنامے"
+          title="نگہبان کو عمل میں دیکھیں"
+          description="حقیقی دنیا کے منظرنامے جو دکھاتے ہیں کہ نگہبان کراچی بھر میں مختلف قسم کی عمارتوں کی حفاظت کیسے کرتا ہے۔"
+        />
+      </FadeIn>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-16">
+        {scenarios.map((scenario, i) => (
+          <FadeIn client:visible delay={i * 0.15}>
+            <GlassCard className="h-full">
+              <h3 class="text-xl font-heading font-semibold text-amber mb-6">{scenario.title}</h3>
+              <div class="space-y-4">
+                <div>
+                  <p class="text-xs font-semibold tracking-widest uppercase text-slate-light mb-1">مسئلہ</p>
+                  <p class="text-slate-light">{scenario.problem}</p>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold tracking-widest uppercase text-amber mb-1">حل</p>
+                  <p class="text-slate-light">{scenario.solution}</p>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold tracking-widest uppercase text-green-400 mb-1">نتیجہ</p>
+                  <p class="text-slate-light">{scenario.outcome}</p>
+                </div>
+              </div>
+            </GlassCard>
+          </FadeIn>
+        ))}
+      </div>
+    </Section>
+
+    {/* FAQ */}
+    <Section variant="light" id="faq">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="عمومی سوالات"
+          title="اکثر پوچھے جانے والے سوالات"
+          description="نگہبان کے ساتھ شروع کرنے کے بارے میں آپ کو جو کچھ جاننے کی ضرورت ہے۔"
+        />
+      </FadeIn>
+      <div class="max-w-3xl mx-auto mt-16 space-y-6">
+        {faqs.map((faq, i) => (
+          <FadeIn client:visible delay={i * 0.1}>
+            <div class="border border-slate-200 rounded-2xl p-6">
+              <h3 class="text-lg font-heading font-semibold mb-2">{faq.question}</h3>
+              <p class="text-slate-cool">{faq.answer}</p>
+            </div>
+          </FadeIn>
+        ))}
+      </div>
+    </Section>
+
+    {/* CTA */}
+    <Section variant="dark" background="none" className="bg-gradient-to-r from-navy to-charcoal">
+      <div class="max-w-3xl mx-auto text-center">
+        <FadeIn client:visible>
+          <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">
+            لائیو دیکھنے کے لیے تیار ہیں؟
+          </h2>
+          <p class="text-lg text-slate-light mb-10">
+            مفت ڈیمو بک کریں — ہم آپ کے کیمروں سے جڑیں گے اور آپ کو نگہبان عمل میں دکھائیں گے۔
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a
+              href="/ur/contact"
+              class="bg-amber text-navy font-semibold px-8 py-4 rounded-xl hover:brightness-110 transition-all text-lg"
+            >
+              مفت ڈیمو بک کریں
+            </a>
+          </div>
+        </FadeIn>
+      </div>
+    </Section>
+  </main>
+  <Footer locale={locale} />
+</Layout>

@@ -1,0 +1,91 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Section from '@/components/sections/Section.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import { getLocale } from '@/lib/i18n';
+import { getCollection } from 'astro:content';
+
+const locale = getLocale(Astro.url);
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const categoryColors: Record<string, string> = {
+  product: 'bg-amber/10 text-amber-dark',
+  industry: 'bg-blue-500/10 text-blue-700',
+  safety: 'bg-red-500/10 text-red-700',
+  engineering: 'bg-emerald-500/10 text-emerald-700',
+  company: 'bg-purple-500/10 text-purple-700',
+};
+---
+
+<Layout title="Blog — Fire Safety Insights & Product Updates | Nigahban AI">
+  <Header locale={locale} />
+  <main>
+    <Section variant="dark" background="dots">
+      <SectionHeader
+        eyebrow="Blog"
+        title="Fire Safety Insights & Product Updates"
+        description="Expert analysis on fire safety in Pakistan, AI detection technology, and building compliance."
+      />
+    </Section>
+
+    <Section variant="light">
+      {posts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post) => (
+            <a
+              href={`/blog/${post.id}`}
+              class="group rounded-2xl border border-slate-cool/10 overflow-hidden hover:-translate-y-1 transition flex flex-col bg-white"
+            >
+              {post.data.heroImage && (
+                <img
+                  src={post.data.heroImage}
+                  alt={post.data.title}
+                  class="w-full h-48 object-cover"
+                />
+              )}
+              <div class="p-6 flex flex-col flex-1">
+                <span
+                  class:list={[
+                    'text-xs font-semibold px-2 py-1 rounded w-fit mb-3',
+                    categoryColors[post.data.category] || 'bg-amber/10 text-amber-dark',
+                  ]}
+                >
+                  {post.data.category}
+                </span>
+                <h3 class="text-xl font-heading font-semibold mb-2 group-hover:text-amber transition-colors">
+                  {post.data.title}
+                </h3>
+                <p class="text-slate-cool text-sm mb-4 flex-1">
+                  {post.data.description}
+                </p>
+                <div class="flex items-center justify-between text-xs text-slate-cool">
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {post.data.pubDate.toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </time>
+                  <span>{post.data.author}</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-16">
+          <p class="text-2xl font-heading font-semibold text-navy mb-2">Coming Soon</p>
+          <p class="text-slate-cool">
+            We're working on insightful articles about fire safety and AI detection. Check back soon!
+          </p>
+        </div>
+      )}
+    </Section>
+  </main>
+  <Footer locale={locale} />
+</Layout>

@@ -1,0 +1,170 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Section from '@/components/sections/Section.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import GlassCard from '@/components/ui/GlassCard.astro';
+import { FadeIn } from '@/components/react/FadeIn';
+
+const locale = 'ur' as const;
+
+const values = [
+  {
+    title: 'حفاظت سب سے پہلے',
+    description: 'ہمارا ہر فیصلہ ایک سوال کے خلاف ناپا جاتا ہے: کیا اس سے عمارتیں زیادہ محفوظ ہوں گی؟ ہم کبھی ڈیٹیکشن کی درستگی یا الرٹ کی رفتار پر سمجھوتہ نہیں کرتے۔',
+  },
+  {
+    title: 'قابل رسائی ٹیکنالوجی',
+    description: 'ایڈوانسڈ AI عیاشی نہیں ہونی چاہیے۔ ہم نے نگہبان کو ان کیمروں کے ساتھ کام کرنے کے لیے بنایا جو عمارتوں میں پہلے سے موجود ہیں — کوئی مہنگے اپ گریڈ نہیں، کوئی پیچیدہ تنصیبات نہیں۔',
+  },
+  {
+    title: 'پاکستان میں بنایا گیا',
+    description: 'ہم پاکستان کے بنیادی ڈھانچے، بلڈنگ کوڈز، اور آگ کے خطرات کو سمجھتے ہیں کیونکہ ہم یہاں رہتے ہیں۔ ہمارا AI مقامی ماحول اور حالات پر تربیت یافتہ ہے۔',
+  },
+  {
+    title: 'شفاف AI',
+    description: 'ہر ڈیٹیکشن کے ساتھ کیپچر شدہ فریم اور کانفیڈنس اسکور آتا ہے۔ آپ بالکل دیکھ سکتے ہیں کہ الرٹ کس وجہ سے آیا — کوئی بلیک باکس نہیں، کوئی اسرار نہیں۔',
+  },
+];
+---
+
+<Layout title="نگہبان AI — ہمارے بارے میں">
+  <Header locale={locale} />
+  <main>
+    {/* Hero */}
+    <Section variant="dark" background="dots" id="about-hero">
+      <div class="min-h-[60vh] flex items-center -my-20 lg:-my-28">
+        <div class="max-w-3xl mx-auto text-center">
+          <FadeIn client:visible>
+            <p class="text-amber text-sm font-semibold tracking-widest uppercase mb-4">ہمارے بارے میں</p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight mb-6">
+              ذہین آگ کے پتہ لگانے کے ذریعے
+              <span class="text-amber"> پاکستان کی حفاظت</span>
+            </h1>
+            <p class="text-xl text-slate-light max-w-2xl mx-auto">
+              ہم اس مشن پر ہیں کہ کام کرنے والے CCTV کیمروں والی کوئی عمارت کبھی ناقابلِ شناخت آگ سے جانیں نہ کھوئے۔
+            </p>
+          </FadeIn>
+        </div>
+      </div>
+    </Section>
+
+    {/* Mission */}
+    <Section variant="light" id="mission">
+      <div class="max-w-4xl mx-auto text-center">
+        <FadeIn client:visible>
+          <p class="text-3xl md:text-4xl font-heading font-bold leading-relaxed">
+            AI کے ذریعے فائر سیفٹی کو
+            <span class="text-amber"> پاکستان کی ہر عمارت</span>
+            کے لیے قابل رسائی بنانا۔
+          </p>
+        </FadeIn>
+      </div>
+    </Section>
+
+    {/* Story */}
+    <Section variant="charcoal" id="story">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <FadeIn client:visible direction="left">
+          <div>
+            <p class="text-amber text-sm font-semibold tracking-widest uppercase mb-4">ہماری کہانی</p>
+            <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">ہم نے نگہبان کیوں بنایا</h2>
+            <div class="space-y-4 text-slate-light text-lg">
+              <p>
+                جنوری 2026 میں، کراچی کے گل پلازہ سانحے نے 73 جانیں لیں۔ عمارت میں CCTV کیمرے نصب تھے۔ وہ ریکارڈ کر رہے تھے۔ لیکن کوئی دیکھ نہیں رہا تھا۔
+              </p>
+              <p>
+                جب تک کسی نے مانیٹر پر دھواں نوٹس کیا، آگ پہلے ہی تین منزلیں لپیٹ میں لے چکی تھی۔ خاندانوں نے سب کچھ کھو دیا۔ فوٹیج موجود تھی — خبردار کرنے والا نہیں تھا۔
+              </p>
+              <p>
+                ہم نے نگہبان اس لیے بنایا کیونکہ ہم یقین رکھتے ہیں کہ موجودہ ٹیکنالوجی کافی ہونی چاہیے۔ اگر کیمرا آگ دیکھ سکتا ہے، تو AI کو فوری طور پر، خودکار طور پر، بغیر کسی انسان کے نوٹس کرنے کا انتظار کیے الارم بجانا چاہیے۔
+              </p>
+              <p>
+                <strong class="text-white">نگہبان کا مطلب اردو میں "محافظ" ہے۔</strong> یہی ہم بنا رہے ہیں: ایک AI محافظ جو اس وقت دیکھتا ہے جب انسان نہیں دیکھ سکتے۔
+              </p>
+            </div>
+          </div>
+        </FadeIn>
+        <FadeIn client:visible direction="right" delay={0.2}>
+          <div class="space-y-8">
+            <div class="glass rounded-2xl p-8 text-center">
+              <p class="text-5xl font-heading font-bold text-amber mb-2">73</p>
+              <p class="text-slate-light">گل پلازہ کی آگ میں جانیں ضائع ہوئیں</p>
+            </div>
+            <div class="glass rounded-2xl p-8 text-center">
+              <p class="text-5xl font-heading font-bold text-amber mb-2">80%</p>
+              <p class="text-slate-light">کراچی کی تجارتی عمارتوں میں CCTV موجود ہے</p>
+            </div>
+            <div class="glass rounded-2xl p-8 text-center">
+              <p class="text-5xl font-heading font-bold text-amber mb-2">&lt; 3s</p>
+              <p class="text-slate-light">نگہبان کا ڈیٹیکشن سے الرٹ تک کا وقت</p>
+            </div>
+          </div>
+        </FadeIn>
+      </div>
+    </Section>
+
+    {/* NIC Karachi */}
+    <Section variant="light" id="nic-karachi">
+      <div class="max-w-3xl mx-auto text-center">
+        <FadeIn client:visible>
+          <p class="text-amber text-sm font-semibold tracking-widest uppercase mb-4">انکیوبیشن</p>
+          <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">
+            NIC کراچی، کوہورٹ 15 میں انکیوبیٹ شدہ
+          </h2>
+          <p class="text-lg text-slate-cool max-w-2xl mx-auto mb-4">
+            نگہبان AI فخر سے نیشنل انکیوبیشن سینٹر (NIC) کراچی میں انکیوبیٹ ہے — پاکستان کا سب سے بڑا ٹیکنالوجی انکیوبیٹر، Jazz اور Teamup کی طاقت سے۔
+          </p>
+          <p class="text-slate-cool max-w-2xl mx-auto">
+            NIC کراچی نے اپنی بنیاد سے اب تک 500 سے زائد سٹارٹ اپس کی مدد کی ہے۔ کوہورٹ 15 کا حصہ ہونے سے ہمیں رہنمائی، صنعتی روابط، اور پاکستان بھر میں اپنی فائر سیفٹی ٹیکنالوجی کو پھیلانے کے وسائل تک رسائی ملتی ہے۔
+          </p>
+        </FadeIn>
+      </div>
+    </Section>
+
+    {/* Values */}
+    <Section variant="dark" background="dots" id="values">
+      <FadeIn client:visible>
+        <SectionHeader
+          eyebrow="اقدار"
+          title="ہمیں کیا چلاتا ہے"
+          description="نگہبان میں ہم جو کچھ بھی بناتے ہیں اس کے پیچھے اصول۔"
+        />
+      </FadeIn>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+        {values.map((value, i) => (
+          <FadeIn client:visible delay={i * 0.1}>
+            <GlassCard className="h-full">
+              <h3 class="text-xl font-heading font-semibold text-amber mb-3">{value.title}</h3>
+              <p class="text-slate-light">{value.description}</p>
+            </GlassCard>
+          </FadeIn>
+        ))}
+      </div>
+    </Section>
+
+    {/* CTA */}
+    <Section variant="dark" background="none" className="bg-gradient-to-r from-navy to-charcoal">
+      <div class="max-w-3xl mx-auto text-center">
+        <FadeIn client:visible>
+          <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">
+            مشن میں شامل ہوں
+          </h2>
+          <p class="text-lg text-slate-light mb-10">
+            چاہے آپ اپنی عمارت کی حفاظت کرنا چاہیں یا ہمارے ساتھ شراکت — ہم آپ سے سننا پسند کریں گے۔
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a
+              href="/ur/contact"
+              class="bg-amber text-navy font-semibold px-8 py-4 rounded-xl hover:brightness-110 transition-all text-lg"
+            >
+              رابطہ کریں
+            </a>
+          </div>
+        </FadeIn>
+      </div>
+    </Section>
+  </main>
+  <Footer locale={locale} />
+</Layout>

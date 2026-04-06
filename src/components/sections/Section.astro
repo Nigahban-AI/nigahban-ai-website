@@ -1,0 +1,39 @@
+---
+interface Props {
+  variant?: 'light' | 'dark' | 'charcoal';
+  background?: 'dots' | 'grid' | 'none';
+  id?: string;
+  className?: string;
+}
+
+const {
+  variant = 'light',
+  background = 'none',
+  id,
+  className,
+} = Astro.props;
+
+const variantClasses: Record<string, string> = {
+  light: 'bg-bg text-navy',
+  dark: 'bg-navy text-white',
+  charcoal: 'bg-charcoal text-white',
+};
+
+const bgClasses: Record<string, string> = {
+  dots: 'bg-dots',
+  grid: 'bg-grid',
+  none: '',
+};
+
+const sectionClass = [
+  variantClasses[variant],
+  bgClasses[background],
+  className,
+].filter(Boolean).join(' ');
+---
+
+<section id={id} class={sectionClass}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <slot />
+  </div>
+</section>
