@@ -1,10 +1,11 @@
 ---
 import type { Locale } from '@/lib/i18n';
 import { t } from '@/lib/i18n';
-import Section from './Section.astro';
+import { Image } from 'astro:assets';
 import SectionHeader from './SectionHeader.astro';
-import StatCard from '@/components/ui/StatCard.astro';
 import { FadeIn } from '@/components/react/FadeIn';
+import { CountUp } from '@/components/react/CountUp';
+import fireBg from '@/assets/photos/fire-building.jpg';
 
 interface Props {
   locale: Locale;
@@ -12,30 +13,63 @@ interface Props {
 
 const { locale } = Astro.props;
 
-const items: { key: string; color: 'danger' | 'amber' }[] = [
-  { key: 'fires', color: 'danger' },
-  { key: 'deaths', color: 'danger' },
-  { key: 'noncompliant', color: 'danger' },
-  { key: 'cameras', color: 'amber' },
+const items = [
+  { key: 'fires', color: 'text-danger' },
+  { key: 'deaths', color: 'text-danger' },
+  { key: 'noncompliant', color: 'text-amber' },
+  { key: 'cameras', color: 'text-amber' },
 ];
 ---
 
-<Section variant="dark" background="dots" id="stats">
-  <SectionHeader
-    eyebrow={t(locale, 'stats.eyebrow')}
-    title={t(locale, 'stats.title')}
-  />
+<section class="relative overflow-hidden fire-bg" id="stats">
+  {/* Background image */}
+  <div class="absolute inset-0">
+    <Image
+      src={fireBg}
+      alt=""
+      class="w-full h-full object-cover"
+      widths={[800, 1600]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-navy/85"></div>
+  </div>
 
-  <FadeIn client:visible>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
-      {items.map((item) => (
-        <StatCard
-          value={t(locale, `stats.items.${item.key}.value`)}
-          label={t(locale, `stats.items.${item.key}.label`)}
-          source={t(locale, `stats.items.${item.key}.source`)}
-          color={item.color}
-        />
+  {/* CSS fire embers */}
+  <div class="fire-embers">
+    <span /><span /><span /><span /><span />
+    <span /><span /><span /><span /><span />
+  </div>
+  <div class="fire-heat"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 relative z-10">
+    <SectionHeader
+      eyebrow={t(locale, 'stats.eyebrow')}
+      title={t(locale, 'stats.title')}
+      dark
+    />
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 mt-16 border border-white/5">
+      {items.map((item, i) => (
+        <FadeIn client:visible delay={i * 0.08}>
+          <div class="bg-navy/80 backdrop-blur-sm p-8 lg:p-10 text-center h-full group hover:bg-navy/60 transition-all duration-500 relative overflow-hidden">
+            {/* Top ember accent */}
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-amber/0 to-transparent group-hover:via-amber/40 transition-all duration-700"></div>
+
+            <p class:list={[
+              'text-4xl lg:text-5xl font-heading font-semibold tracking-tight',
+              item.color,
+            ]}>
+              {t(locale, `stats.items.${item.key}.value`)}
+            </p>
+            <p class="text-sm font-medium text-white mt-3 mb-1">
+              {t(locale, `stats.items.${item.key}.label`)}
+            </p>
+            <p class="text-[11px] text-slate-light italic">
+              {t(locale, `stats.items.${item.key}.source`)}
+            </p>
+          </div>
+        </FadeIn>
       ))}
     </div>
-  </FadeIn>
-</Section>
+  </div>
+</section>

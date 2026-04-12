@@ -1,7 +1,6 @@
 ---
 import type { Locale } from '@/lib/i18n';
 import { t } from '@/lib/i18n';
-import Section from './Section.astro';
 import SectionHeader from './SectionHeader.astro';
 import { FadeIn } from '@/components/react/FadeIn';
 
@@ -21,81 +20,86 @@ const headers = [
 const rowKeys = ['speed', 'hardware', 'cost', 'accuracy', 'market'] as const;
 ---
 
-<Section variant="charcoal" background="grid" id="comparison">
-  <SectionHeader
-    eyebrow={t(locale, 'comparison.eyebrow')}
-    title={t(locale, 'comparison.title')}
-  />
+<section class="bg-bg border-t border-border" id="comparison">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+    <SectionHeader
+      eyebrow={t(locale, 'comparison.eyebrow')}
+      title={t(locale, 'comparison.title')}
+    />
 
-  <FadeIn client:visible>
-    {/* Desktop table */}
-    <div class="hidden md:block mt-16 overflow-hidden rounded-2xl bg-white/5">
-      <table class="w-full border-collapse">
-        <thead>
-          <tr>
-            {headers.map((header, i) => (
-              <th
-                class:list={[
-                  'text-left p-4 border-b border-white/10 font-heading font-semibold text-sm uppercase tracking-wider',
-                  i === headers.length - 1 ? 'bg-amber/10 text-amber' : 'text-slate-light',
-                ]}
-              >
-                {header}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rowKeys.map((key) => (
-            <tr class="hover:bg-white/5 transition-colors">
-              {[0, 1, 2, 3].map((col) => (
-                <td
+    <FadeIn client:visible>
+      {/* Desktop table */}
+      <div class="hidden md:block mt-16 border border-border">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr>
+              {headers.map((header, i) => (
+                <th
                   class:list={[
-                    'p-4 border-b border-white/10',
-                    col === 3 ? 'bg-amber/10 text-amber font-semibold' : 'text-slate-light',
-                    col === 0 && 'font-medium text-white',
+                    'text-left p-5 border-b border-border text-[11px] font-mono uppercase tracking-wider',
+                    i === headers.length - 1 ? 'bg-amber/5 text-amber font-semibold' : 'text-slate-cool font-medium',
                   ]}
                 >
-                  {t(locale, `comparison.rows.${key}.${col}`) !== `comparison.rows.${key}.${col}`
-                    ? t(locale, `comparison.rows.${key}.${col}`)
-                    : '—'}
-                </td>
+                  {header}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-
-    {/* Mobile stacked cards */}
-    <div class="md:hidden mt-16 space-y-6">
-      {rowKeys.map((key) => (
-        <div class="rounded-2xl bg-white/5 p-5">
-          <h3 class="font-heading font-semibold text-white mb-3">
-            {t(locale, `comparison.rows.${key}.0`) !== `comparison.rows.${key}.0`
-              ? t(locale, `comparison.rows.${key}.0`)
-              : key}
-          </h3>
-          <div class="space-y-2">
-            {[1, 2, 3].map((col) => (
-              <div class:list={[
-                'flex justify-between items-center py-2 px-3 rounded-lg',
-                col === 3 ? 'bg-amber/10' : 'bg-white/5',
+          </thead>
+          <tbody>
+            {rowKeys.map((key, ri) => (
+              <tr class:list={[
+                'hover:bg-bg/50 transition-colors',
+                ri < rowKeys.length - 1 && 'border-b border-border',
               ]}>
-                <span class="text-sm text-slate-light">{headers[col]}</span>
-                <span class:list={[
-                  'text-sm font-medium',
-                  col === 3 ? 'text-amber font-semibold' : 'text-white',
-                ]}>
-                  {t(locale, `comparison.rows.${key}.${col}`) !== `comparison.rows.${key}.${col}`
-                    ? t(locale, `comparison.rows.${key}.${col}`)
-                    : '—'}
-                </span>
-              </div>
+                {[0, 1, 2, 3].map((col) => (
+                  <td
+                    class:list={[
+                      'p-5 text-[15px]',
+                      col === 3 ? 'bg-amber/5 text-amber font-semibold' : 'text-slate-cool',
+                      col === 0 && 'font-medium text-navy',
+                    ]}
+                  >
+                    {t(locale, `comparison.rows.${key}.${col}`) !== `comparison.rows.${key}.${col}`
+                      ? t(locale, `comparison.rows.${key}.${col}`)
+                      : '—'}
+                  </td>
+                ))}
+              </tr>
             ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Mobile cards */}
+      <div class="md:hidden mt-16 space-y-4">
+        {rowKeys.map((key) => (
+          <div class="border border-border bg-surface p-5">
+            <h3 class="font-heading font-semibold text-navy mb-3 text-sm">
+              {t(locale, `comparison.rows.${key}.0`) !== `comparison.rows.${key}.0`
+                ? t(locale, `comparison.rows.${key}.0`)
+                : key}
+            </h3>
+            <div class="space-y-2">
+              {[1, 2, 3].map((col) => (
+                <div class:list={[
+                  'flex justify-between items-center py-2 px-3',
+                  col === 3 ? 'bg-amber/5' : 'bg-bg',
+                ]}>
+                  <span class="text-xs text-slate-cool uppercase tracking-wider">{headers[col]}</span>
+                  <span class:list={[
+                    'text-sm',
+                    col === 3 ? 'text-amber font-semibold' : 'text-navy',
+                  ]}>
+                    {t(locale, `comparison.rows.${key}.${col}`) !== `comparison.rows.${key}.${col}`
+                      ? t(locale, `comparison.rows.${key}.${col}`)
+                      : '—'}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
-  </FadeIn>
-</Section>
+        ))}
+      </div>
+    </FadeIn>
+  </div>
+</section>
